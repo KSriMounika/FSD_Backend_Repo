@@ -10,6 +10,8 @@ app.get('/', (req, res) => {
     res.send("Home");
 })
 
+
+
 app.get('/get-user', (req,res) => {
 
     res.send("api successful");
