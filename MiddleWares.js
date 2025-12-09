@@ -5,10 +5,7 @@ const app = express();
 // app.use(express.bodyParser())
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    console.log("This is from backend");
-    res.send("Home");
-})
+
 
 
 
