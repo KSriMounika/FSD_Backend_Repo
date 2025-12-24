@@ -7,8 +7,11 @@ const app = express();
 const port = 7010;
 
 
-mongoose.connect("mongodb+srv://keerthisrimounika_db_user:Keerthi%408@cluster0.brpkp50.mongodb.net/").then(() => console.log("db connected"))
+mongoose.connect("mongodb://localhost:27017").then(() => console.log("db connected"))
 .catch((error) => console.log(error));
+
+// mongoose.connect("mongodb+srv://keerthisrimounika_db_user:Keerthi%408@cluster0.brpkp50.mongodb.net/").then(() => console.log("db connected"))
+// .catch((error) => console.log(error));
 
 app.use(express.json());
 app.use(cors());
