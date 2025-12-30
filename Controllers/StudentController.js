@@ -68,6 +68,28 @@ const getStudentDetails = async(req, res) => {
     }
 
 };
+const updateStudent = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const data = req.body;
+
+        // const updatedData = await student.findOneAndUpdate({stdRoll:id}, data,{new : true} );
+        //  const updatedData = await student.findByIdAndUpdate({ _id :id}, data, {new : true});
+        const updatedData = await student.updateMany(
+            { status: false },
+            { $set: { status: true } }
+        );
+        if (!updatedData) {
+            return res.status(404).json({ message: "Student not found" });
+        }
+
+        res.status(200).json({ student: updatedData, message: "Student updated successfully"});
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 const addStudent = async(req, res) => {
     try{
          const data = req.body;
@@ -80,4 +102,4 @@ const addStudent = async(req, res) => {
         res.status(500).json({error: error.message})
     }
 };
-export {getStudent, addStudent, getStudentById, getStudentDetails};
+export {getStudent, addStudent, getStudentById, getStudentDetails, updateStudent};
