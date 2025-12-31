@@ -25,6 +25,7 @@
 
 import student from "../Models/studentModels.js";
 
+//GET METHOD 
 const getStudent = async(req, res) => {
     try{
             // const mydata = await student.find();
@@ -68,6 +69,22 @@ const getStudentDetails = async(req, res) => {
     }
 
 };
+
+//POST METHOD
+
+const addStudent = async(req, res) => {
+    try{
+         const data = req.body;
+    console.log(data);
+    const addeddata = await student.create(data);
+    // const addeddata = await student.insertMany(data);
+    console.log(addeddata);
+    res.status(201).json("data added");
+    }catch(error){
+        res.status(500).json({error: error.message})
+    }
+};
+
 const updateStudent = async (req, res) => {
     try {
         const { id } = req.params;
@@ -90,16 +107,46 @@ const updateStudent = async (req, res) => {
     }
 };
 
-const addStudent = async(req, res) => {
-    try{
-         const data = req.body;
-    console.log(data);
-    const addeddata = await student.create(data);
-    // const addeddata = await student.insertMany(data);
-    console.log(addeddata);
-    res.status(201).json("data added");
-    }catch(error){
-        res.status(500).json({error: error.message})
+const deleteStudent = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const data = req.body;
+
+        // const deletedData = await student.deleteOne({stdRoll:id} );
+        //  const deletedData  = await student.findByIdAndDelete({ _id :id}, data, {new : true});
+        // const deletedData = await student.findOneAndDelete({stdRoll:id} );
+         const deletedData = await student.deleteMany(
+            {  }
+        );
+       
+        if (!deletedData) {
+            return res.status(404).json({ message: "Student not found" });
+        }
+
+        res.status(200).json({ student: deletedData, message: "Student deleted successfully"});
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
-export {getStudent, addStudent, getStudentById, getStudentDetails, updateStudent};
+
+const deleteStudentDetails = async (req, res) => {
+    try {
+       
+        
+         const deletedData = await student.deleteMany(
+            {  }
+        );
+       
+        if (!deletedData) {
+            return res.status(404).json({ message: "Student not found" });
+        }
+
+        res.status(200).json({ student: deletedData, message: "Student deleted successfully"});
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export {getStudent, addStudent, getStudentById, getStudentDetails, updateStudent, deleteStudent, deleteStudentDetails};
