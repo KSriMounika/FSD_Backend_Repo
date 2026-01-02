@@ -149,4 +149,43 @@ const deleteStudentDetails = async (req, res) => {
     }
 };
 
+
+
+
+
+
 export {getStudent, addStudent, getStudentById, getStudentDetails, updateStudent, deleteStudent, deleteStudentDetails};
+
+
+
+export const addStudent2 = async (req, res) => {
+  const data = await student.create(req.body);
+  res.status(201).json(data);
+};
+
+export const getStudents1 = async (req, res) => {
+  const data = await student.find({}, { stdName: 1, stdRoll: 1 });
+  res.status(200).json(data);
+};
+
+export const getStudentById1 = async (req, res) => {
+  const data = await student.findById(req.params.id);
+  res.status(200).json(data);
+};
+export const updateStudent1 = async (req, res) => {
+  try {
+    const updatedData = await student.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.status(200).json(updatedData);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const deleteStudent1 = async (req, res) => {
+  await student.findByIdAndDelete(req.params.id);
+  res.status(200).json({ message: "Student deleted" });
+};

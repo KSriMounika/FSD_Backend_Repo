@@ -6,16 +6,31 @@ const studentSchema = new mongoose.Schema({
         required: true
     },
     stdRoll : {
+        type: String,
+        required: true
+    },
+    stdEmail :
+    {
+        type: String
+
+    },
+    stdCollege:
+    {
         type: String
     },
-    stdPhone: {
-        type : Number
-    },
-    status:
+    stdBranch :
     {
-        type: Boolean,
-        default: false
+        type: String
     }
+
+    // stdPhone: {
+    //     type : Number
+    // },
+    // status:
+    // {
+    //     type: Boolean,
+    //     default: false
+    // }
 });
 const student = mongoose.model("student", studentSchema);
 export default student;

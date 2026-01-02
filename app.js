@@ -15,6 +15,9 @@ mongoose.connect("mongodb+srv://keerthisrimounika_db_user:Keerthi%408@cluster0.b
 
 app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use("/students", router);
+
 
 app.use('/',router);
 app.get('/users',(req,res)=>{
