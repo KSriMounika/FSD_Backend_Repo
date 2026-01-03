@@ -189,3 +189,4 @@ export const deleteStudent1 = async (req, res) => {
   await student.findByIdAndDelete(req.params.id);
   res.status(200).json({ message: "Student deleted" });
 };
+
