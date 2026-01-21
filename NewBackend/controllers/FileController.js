@@ -8,5 +8,4 @@ const UploadFile = async (req, res) => {
   }
 };
 
-// ✅ EXPORT THE FUNCTION
 module.exports = { UploadFile };

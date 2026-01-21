@@ -32,31 +32,26 @@
 
 // route.post("/file-upload",Upload.array('file',3),FileController.UploadFile)
 
-
 const express = require("express");
 const route = express.Router();
-
 const multer = require("multer");
 const path = require("path");
 const FileController = require("../controllers/FileController");
 
-// multer storage
+// storage
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
+  destination: (req, file, cb) => cb(null, "uploads"),
+  filename: (req, file, cb) =>
+    cb(null, Date.now() + path.extname(file.originalname)),
 });
 
-// file filter
+// filter
 const fileFilter = (req, file, cb) => {
   const allowed = /png|jpg|jpeg|svg/;
   const ext = path.extname(file.originalname).toLowerCase();
-
-  if (allowed.test(ext)) cb(null, true);
-  else cb(new Error("Invalid file format"));
+  allowed.test(ext)
+    ? cb(null, true)
+    : cb(new Error("Invalid file type"));
 };
 
 const upload = multer({
@@ -65,12 +60,11 @@ const upload = multer({
   limits: { fileSize: 1024 * 1024 * 2 },
 });
 
-// ✅ ROUTE
+// route
 route.post(
   "/file-upload",
   upload.array("file", 3),
   FileController.UploadFile
 );
 
-// ✅ EXPORT (MANDATORY)
 module.exports = route;
