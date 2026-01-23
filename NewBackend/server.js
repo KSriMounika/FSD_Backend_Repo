@@ -144,14 +144,21 @@
 //   console.log("Server running on port 9000");
 // });
 
-
 const express = require("express");
 const app = express();
+
 const mongoose = require("mongoose");
- mongoose.connect("mongodb://localhost:27017/taskdb")
-  .then(() => console.log("DB Connected"))
+mongoose.connect("mongodb://localhost:27017/taskdb")
+  .then(() => console.log("DB Connected"));
+
 app.use(express.json());
+
+const cron = require("node-cron");
 const { Encryption, VerifyEncryption } = require("./controllers/passwordEncrpytion");
+
+cron.schedule("*/5 * * * * *", () => {
+  console.log("Hello every 5 seconds");
+});
 
 
 app.post("/encrypt", Encryption);
