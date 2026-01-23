@@ -38,35 +38,35 @@
 
 
 
-const express = require("express");
-const mongoose = require("mongoose");
-const fileRoutes = require("./routes/fileroutes");
-const cors = require("cors");
-const path = require("path");
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const fileRoutes = require("./routes/fileroutes");
+// const cors = require("cors");
+// const path = require("path");
 
-const app = express();
+// const app = express();
 
-app.use(cors({
-  origin: "http://localhost:5173"
-}));
+// app.use(cors({
+//   origin: "http://localhost:5173"
+// }));
 
-app.use(express.json());
+// app.use(express.json());
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-mongoose.connect("mongodb://localhost:27017/taskdb")
-  .then(() => console.log("DB Connected"))
-  .catch((error) => console.log(error));
+// mongoose.connect("mongodb://localhost:27017/taskdb")
+//   .then(() => console.log("DB Connected"))
+//   .catch((error) => console.log(error));
 
-app.get("/", (req, res) => {
-  res.send("Backend is running ");
-});
+// app.get("/", (req, res) => {
+//   res.send("Backend is running ");
+// });
 
-app.use("/api", fileRoutes);
+// app.use("/api", fileRoutes);
 
-app.listen(9000, () => {
-  console.log("Server running on port 9000");
-});
+// app.listen(9000, () => {
+//   console.log("Server running on port 9000");
+// });
 
 
 
@@ -115,3 +115,48 @@ app.listen(9000, () => {
 // app.listen(5000, () => {
 //   console.log("Server running on port 5000")
 // })
+
+
+
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const cors = require("cors");
+// const path = require("path");
+// const crone = require(crone)
+
+// const app = express();
+
+
+// app.use(express.json());
+
+
+// mongoose.connect("mongodb://localhost:27017/taskdb")
+//   .then(() => console.log("DB Connected"))
+//   .catch((error) => console.log(error));
+
+// app.get("/", (req, res) => {
+//   res.send("Backend is running ");
+// });
+
+// app.use("/api", fileRoutes);
+
+// app.listen(9000, () => {
+//   console.log("Server running on port 9000");
+// });
+
+
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+ mongoose.connect("mongodb://localhost:27017/taskdb")
+  .then(() => console.log("DB Connected"))
+app.use(express.json());
+const { Encryption, VerifyEncryption } = require("./controllers/passwordEncrpytion");
+
+
+app.post("/encrypt", Encryption);
+app.post("/verify", VerifyEncryption);
+
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
