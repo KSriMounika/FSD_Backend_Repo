@@ -144,26 +144,41 @@
 //   console.log("Server running on port 9000");
 // });
 
+// const express = require("express");
+// const app = express();
+
+// const mongoose = require("mongoose");
+// mongoose.connect("mongodb://localhost:27017/taskdb")
+//   .then(() => console.log("DB Connected"));
+
+// app.use(express.json());
+
+// const cron = require("node-cron");
+// const { Encryption, VerifyEncryption } = require("./controllers/passwordEncrpytion");
+
+// cron.schedule("*/5 * * * * *", () => {
+//   console.log("Hello every 5 seconds");
+// });
+
+
+// app.post("/encrypt", Encryption);
+// app.post("/verify", VerifyEncryption);
+
+// app.listen(3000, () => {
+//     console.log("Server running on port 3000");
+// });
+
 const express = require("express");
-const app = express();
-
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/taskdb")
-  .then(() => console.log("DB Connected"));
+const studentRoutes = require("./routes/studentRoutes");
 
+const app = express();
 app.use(express.json());
+mongoose.connect("mongodb+srv://keerthisrimounika_db_user:Keerthi%408@cluster0.brpkp50.mongodb.net/").then(() => console.log("db connected"))
+.catch((error) => console.log(error));
 
-const cron = require("node-cron");
-const { Encryption, VerifyEncryption } = require("./controllers/passwordEncrpytion");
-
-cron.schedule("*/5 * * * * *", () => {
-  console.log("Hello every 5 seconds");
-});
-
-
-app.post("/encrypt", Encryption);
-app.post("/verify", VerifyEncryption);
+app.use("/api", studentRoutes);
 
 app.listen(3000, () => {
-    console.log("Server running on port 3000");
+  console.log("Server running on port 3000");
 });
